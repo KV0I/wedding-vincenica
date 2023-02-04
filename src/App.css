@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'CenturySchoolBookRegular';
+  src: local('Century SchoolBook'), url('./fonts/CenturySchoolBook-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'CenturySchoolBookItalic';
+  src: local('Century SchoolBook'), url('./fonts/CenturySchoolBook-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'CenturySchoolBookBold';
+  src: local('Century SchoolBook'), url('./fonts/CenturySchoolBook-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'CenturySchoolBookBoldItalic';
+  src: local('Century SchoolBook'),
+    url('./fonts/CenturySchoolBook-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'VintageLovingRegular';
+  src: url('./fonts/VintageLoving-Regular.otf') format('opentype');
+}
+
+* {
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
