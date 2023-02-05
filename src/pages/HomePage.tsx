@@ -10,6 +10,7 @@ import { HomeHero, PleaseRespond, Venue, DressCode } from '../sections/home';
 import LoadingScreen from '../components/loading-screen';
 import DressDialog from 'src/sections/home/DressDialog';
 import { makeStyles } from '@mui/styles';
+import useResponsive from 'src/hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
@@ -23,16 +24,16 @@ const useStyles = makeStyles({
     scrollSnapType: 'y mandatory',
     scrollBehavior: 'smooth',
     webkitOverflowScrolling: 'touch',
-    scrollMargin: '500px'
+    scrollMargin: '500px',
   },
 });
 
 export default function HomePage() {
-
+  const isMobile = useResponsive('down', 'md');
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    container: sectionRef
-  })
+    container: sectionRef,
+  });
 
   const [isInitialized, setIsInitialized] = useState(false);
 
@@ -41,7 +42,6 @@ export default function HomePage() {
       setIsInitialized(true);
     }, 3400);
   }, []);
-
 
   const classes = useStyles();
 
@@ -56,9 +56,7 @@ export default function HomePage() {
     };
   }, []);
 
-  const y = (useTransform(scrollYProgress, [0, 0.25], [height * 0.9, height / 1.5]));
-
-
+  const y = useTransform(scrollYProgress, [0, 0.25], [height * 0.9, height / 1.5]);
 
   return (
     <>
@@ -71,19 +69,23 @@ export default function HomePage() {
 
       <DressDialog />
 
-      <Box
-        ref={sectionRef}
-        className={classes.container}
-      >
-
-        <Box visibility={'hidden'} zIndex={-1} height='100vh' sx={{ scrollSnapAlign: 'center' }} />
+      <Box ref={sectionRef} className={classes.container}>
+        <Box visibility={'hidden'} zIndex={-1} height="110vh" minHeight={'560px'} sx={{ scrollSnapAlign: 'center' }} />
 
         <DressCode />
+
+        {isMobile && (
+          <Box
+            zIndex={100}
+            bgcolor="background.default"
+            height="90vh"
+            sx={{ scrollSnapAlign: 'end', borderBlockEnd: '2px solid #DDD' }}
+          />
+        )}
 
         <Venue />
 
         <PleaseRespond />
-
       </Box>
       {!isInitialized && <LoadingScreen />}
     </>
@@ -91,4 +93,3 @@ export default function HomePage() {
 }
 
 // ----------------------------------------------------------------------
-
