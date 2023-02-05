@@ -13,28 +13,28 @@ import CarouselSection from '../carousel/Carousel';
 
 const palette = [
   {
-    color: '#E5BA91'
+    color: '#E5BA91',
   },
   {
-    color: '#73754A'
+    color: '#73754A',
   },
   {
-    color: '#AEC3BC'
+    color: '#AEC3BC',
   },
   {
-    color: '#B27951'
+    color: '#B27951',
   },
   {
-    color: '#F2D2C3'
+    color: '#F2D2C3',
   },
   {
-    color: '#989872'
+    color: '#989872',
   },
   {
-    color: '#F5D9BC'
+    color: '#F5D9BC',
   },
   {
-    color: '#DD9E83'
+    color: '#DD9E83',
   },
 ];
 
@@ -43,13 +43,12 @@ const gsrc = '/assets/images/gents';
 
 const ladiesDress = [...Array(10)].map((_, i) => ({
   id: `${i + 1}`,
-  image: `${lsrc}/${i + 1}.png`
+  image: `${lsrc}/${i + 1}.png`,
 }));
 const gentsDress = [...Array(5)].map((_, i) => ({
   id: `${i + 1}`,
-  image: `${gsrc}/${i + 1}.png`
-}))
-
+  image: `${gsrc}/${i + 1}.png`,
+}));
 
 // ----------------------------------------------------------------------
 
@@ -61,7 +60,6 @@ export default function DressCode() {
   useEffect(() => {
     if (pictures.length === 0) setOpen(false);
     else setOpen(true);
-
   }, [pictures, setOpen, setPictures]);
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -89,12 +87,11 @@ export default function DressCode() {
     textAlign: 'center',
     height: '100vh',
     position: 'relative',
-    minHeight: isMobile ? '667px' : '649px',
+    minHeight: isMobile ? '100vh' : '649px',
     maxHeight: '1920px',
     minWidth: '300px',
-    borderBlockEnd: '1px solid #DDD',
-    scrollSnapAlign: 'center',
-    overflow: 'hidden',
+    scrollSnapAlign: 'start',
+    overflow: isMobile ? 'visible' : 'hidden',
     backgroundColor: theme.palette.background.default,
   }));
 
@@ -112,7 +109,7 @@ export default function DressCode() {
     p: isMobile ? 0 : 5,
     minWidth: '300px',
     width: isMobile ? '100%' : '40vw',
-    minHeight: isMobile ? '200px' : '100%',
+    minHeight: isMobile ? '50vh' : '100%',
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
@@ -134,97 +131,105 @@ export default function DressCode() {
     },
   };
 
-
   return (
     <StyledRoot>
       <ContentDivider />
       <Container component={MotionViewport}>
-        <Stack position='absolute' alignSelf='center' width='100vw' sx={{
-          left: 0,
-          right: 0,
-          width: '100%',
-          height: '100vh',
-          maxHeight: '1920px',
-          minHeight: isMobile ? '840px' : '649px',
-          minWidth: '300px',
-        }}>
+        <Stack
+          position="absolute"
+          alignSelf="center"
+          width="100vw"
+          sx={{
+            bgcolor: 'white',
+            left: 0,
+            right: 0,
+            width: '100%',
+            height: '100vh',
+            maxHeight: '1920px',
+            minHeight: isMobile ? '840px' : '649px',
+            minWidth: '300px',
+          }}
+        >
           <Typography variant={isMobile ? 'h3' : 'h2'} sx={{ mb: '2vh' }}>
             Dress Code
           </Typography>
           <Content isMobile={isMobile} />
-
         </Stack>
         <Stack
-          width='100%'
+          position={isMobile ? 'absolute' : 'relative'}
+          left={0}
+          width="100%"
           pt={isMobile ? '6rem' : 0}
           minWidth={'300px'}
-          height={isMobile ? '90vh' : '100vh'}
+          height={isMobile ? '180vh' : '100vh'}
           maxHeight={'1920px'}
           direction={isMobile ? 'column' : 'row'}
           margin={'auto'}
           alignItems="space-evenly"
         >
-          <Box
-            sx={dressSectionStyle}
-          >
-            {!isMobile ?
-              (
-                <>
-                  {/* Ladies */}
-                  <Image src="/assets/images/ladies.png" alt="dresscode" sx={imageStyle}
-                    onClick={() => setPictures(ladiesDress)}
-                  />
-                  {/* <Typography variant="h4" sx={textStyle} color={'#554839'}>
+          <Box sx={dressSectionStyle}>
+            {!isMobile ? (
+              <>
+                {/* Ladies */}
+                <Image
+                  src="/assets/images/ladies.png"
+                  alt="dresscode"
+                  sx={imageStyle}
+                  onClick={() => setPictures(ladiesDress)}
+                />
+                {/* <Typography variant="h4" sx={textStyle} color={'#554839'}>
                     LADIES
                   </Typography> */}
-                </>
-              )
-              :
+              </>
+            ) : (
               <Box sx={{ px: isMobile ? 0 : 10, backgroundColor: 'primary.light' }}>
                 <CarouselSection data={ladiesDress} />
               </Box>
-            }
+            )}
           </Box>
 
-          <Box
-            sx={dressSectionStyle}
-          >
-
-            {!isMobile ?
-              (
-                <>
-                  {/* Gents */}
-                  <Image src="/assets/images/gentle-man.png" alt="dresscode" sx={imageStyle}
-                    onClick={() => setPictures(gentsDress)}
-                  />
-                  {/* <Typography variant="h4" sx={textStyle} color={'#785647'}>
+          <Box sx={dressSectionStyle}>
+            {!isMobile ? (
+              <>
+                {/* Gents */}
+                <Image
+                  src="/assets/images/gentle-man.png"
+                  alt="dresscode"
+                  sx={imageStyle}
+                  onClick={() => setPictures(gentsDress)}
+                />
+                {/* <Typography variant="h4" sx={textStyle} color={'#785647'}>
               GENTLE MAN
             </Typography> */}
-                </>
-              )
-              :
+              </>
+            ) : (
               <Box sx={{ px: isMobile ? 0 : 10, backgroundColor: 'primary.light' }}>
                 <CarouselSection data={gentsDress} />
               </Box>
-            }
+            )}
           </Box>
         </Stack>
       </Container>
-    </StyledRoot >
+    </StyledRoot>
   );
 }
 
 // ----------------------------------------------------------------------
 
+// TODO make DRESS PALETTE a CAROUSEL LIKE COMPONENT
+
 function Content({ isMobile }: { isMobile: boolean }) {
   const solutionList = (
-    <Stack height={'80vh'} alignItems={'center'} justifyContent={isMobile ? 'start' : 'center'} >
-      <Stack maxWidth='100vw' direction={isMobile ? 'row' : 'column'} height={isMobile ? 'auto' : '80vh'} alignSelf='center' maxHeight='800px'>
+    <Stack height={'80vh'} alignItems={'center'} justifyContent={isMobile ? 'start' : 'center'}>
+      <Stack
+        maxWidth="100vw"
+        direction={isMobile ? 'row' : 'column'}
+        height={isMobile ? 'auto' : '80vh'}
+        alignSelf="center"
+        maxHeight="800px"
+      >
         {palette.map((palette) => (
-          <DressPalette
-            key={palette.color}
-            palette={palette}
-          />
+          <DressPalette key={palette.color} palette={palette} />
         ))}
       </Stack>
     </Stack>
@@ -238,7 +243,7 @@ function Content({ isMobile }: { isMobile: boolean }) {
 interface DressPaletteProps extends StackProps {
   palette: {
     color: string;
-  }
+  };
 }
 
 function DressPalette({ palette, sx, ...other }: DressPaletteProps) {

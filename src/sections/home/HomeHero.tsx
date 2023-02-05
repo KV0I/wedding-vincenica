@@ -57,8 +57,8 @@ const StyledContent = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 type Props = {
-  scrollYProgress: MotionValue<number>,
-  y: MotionValue<number>,
+  scrollYProgress: MotionValue<number>;
+  y: MotionValue<number>;
 };
 
 export default function HomeHero({ scrollYProgress, y }: Props) {
@@ -74,7 +74,6 @@ export default function HomeHero({ scrollYProgress, y }: Props) {
   // useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener('resize', handleWindowResize);
 
@@ -87,16 +86,11 @@ export default function HomeHero({ scrollYProgress, y }: Props) {
     };
   }, []);
 
-
   const [scrollY, setScrollY] = useState(0);
 
   scrollYProgress.onChange((latest) => {
     setScrollY(latest / 0.5);
   });
-
-
-
-
 
   return (
     <>
@@ -138,12 +132,16 @@ export default function HomeHero({ scrollYProgress, y }: Props) {
                   // paddingRight={isMobile ? 0 : 15}
                   width={'100vw'}
                 >
-                  <Typography sx={{ width: isMobile ? '100%' : '550px' }} variant={isMobile ? 'h3' : 'h2'}>Vincent John Deyro</Typography>
+                  <Typography sx={{ width: isMobile ? '100%' : '550px' }} variant={isMobile ? 'h3' : 'h2'}>
+                    Vincent John Deyro
+                  </Typography>
                   <Typography variant="h5" fontSize={isMobile ? 15 : 30} letterSpacing={6}>
                     AND
                   </Typography>
 
-                  <Typography sx={{ width: isMobile ? '100%' : '550px' }} variant={isMobile ? 'h3' : 'h2'}>Danica Lutovac</Typography>
+                  <Typography sx={{ width: isMobile ? '100%' : '550px' }} variant={isMobile ? 'h3' : 'h2'}>
+                    Danica Lutovac
+                  </Typography>
                 </Stack>
               </m.div>
 
@@ -154,17 +152,19 @@ export default function HomeHero({ scrollYProgress, y }: Props) {
                 width="100vw"
                 height="80vh"
                 minWidth={ratio < 0.5 ? '40vh' : 300}
+                minHeight={560}
               >
                 {/* <m.div style={mounted ? { y: y } : {}}> */}
                 <LazyLoadImage
                   src="/assets/images/couple.png"
                   alt="hero"
                   style={{
-                    width: (width >= height ? width / 2 : height / 2),
+                    width: width >= height ? width / 2 : height / 2,
                     minWidth: ratio < 0.5 ? '40vh' : 360,
                     maxWidth: ratio > 1.5 ? '75vh' : undefined,
                     // width: ((width - 200) * 1000) / width + 500,
                     // maxWidth: width>2000? '100vh': width,
+                    top: '60%',
                     position: 'fixed',
                     bottom: `calc((20% * ${scrollY}) - 5%)`,
                     // bottom: 0,
